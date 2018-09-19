@@ -99,18 +99,20 @@ volume
 Commands:
 
 attach
-Attach local standard input, output, and error streams to a running container
+# Подключение к stdin, stdout, stderr потокам запущенного контейнера
 
 build
 # Если в директории с Dockerfile выполнить команду docker build, то мы 
 # получим образ на основе Dockerfile
 
-commit
+commit <id контейнера> <имя образа>
+# Изменения в существующем контейнере можно закоммитить в образ для 
+# дальнейшего использования.
 # Когда вы делаете коммит образа, новый образ сохраняется локально, то есть 
 # на вашей машине.
 
-cp
-Copy files/folders between a container and the local filesystem
+cp <путь к данным на хосте> <имя контейнера>:<путь>
+# Cкопировать данные в контейнер или вынуть из него
   
 create
 # Создание нового контейнера
@@ -131,22 +133,22 @@ history
 # Показать историю image
 
 images
-# Просмотр образов, загруженных на вашу машину
+# Просмотр образов, загруженных на машину
 
 import
 Import the contents from a tarball to create a filesystem image
 
 info
-Display system-wide information
+# Получить базовую информацию об инсталляциях
 
 inspect
-Return low-level information on Docker objects
+# Посмотреть детали контейнера
 
 kill
 # Убить один или несколько работающих containers
 
-load
-Load an image from a tar archive or STDIN
+load < /tmp/transfer.tar
+# Загрузка архива образа или STDIN
 
 login
 # Войти в Docker registry
@@ -155,7 +157,7 @@ logout
 # Выйти из Docker registry
 
 logs
-Fetch the logs of a container
+# Посмотреть, что происходит внутри контейнера 
 
 pause
 Pause all processes within one or more containers
@@ -189,8 +191,8 @@ run
 # Если на момент выполнения подкоманды run образ ещё не был загружен, клиент 
 # Docker сперва загрузит образ, а затем запустит контейнер с этим образом
 
-save
-Save one or more images to a tar archive (streamed to STDOUT by default)
+save имя_образа > ~/transfer.tar
+# Сохраняет один или несколько образов в архив (streamed to STDOUT by default)
 
 search
 # Исчет образы, доступные в Docker Hub
@@ -222,3 +224,22 @@ version
 
 wait
 Block until one or more containers stop, then print their exit codes
+
+
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Flags
+
+-i
+# Флаг -i оставляет STDIN открытым, даже, когда вы не присоединены к 
+# контейнеру
+
+-t
+# Флаг -t назначает псевдо-tty контейнеру
+
+-a
+# Показывает все запрошенные элементы
+
+-d
+# Тег, который указывает, как запускать процесс: в режиме foreground 
+# (активном) или detached (фоновом).
